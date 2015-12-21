@@ -13,6 +13,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var fav: UIButton!
     @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var caption: UILabel!
+    @IBOutlet weak var favCount: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
