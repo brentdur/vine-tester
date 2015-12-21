@@ -12,7 +12,15 @@ class FeedTableViewController: UITableViewController {
     
     let count = 20
     var faved = [Bool]()
+    let favCounts:[Int] = [200,190,173, 169, 145, 135, 125, 119, 66, 69, 105, 101, 90, 85, 77, 55, 44, 33, 22, 13]
 
+    var justFaved:Int = -1
+    var favTimes = 0
+    
+    let crazyPinchAttempt = 20
+    var justPinched:Int = -1
+    var pinchCount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -51,8 +59,10 @@ class FeedTableViewController: UITableViewController {
         cell.img.image = image
         // adds a tap recognizer for the image, adding tags so we can reference back to it later
         let imgTap = UITapGestureRecognizer.init(target: self, action: "imgTap:")
+        let imgPinch = UIPinchGestureRecognizer.init(target: self, action: "imgPinch:")
         cell.img.tag = indexPath.row
         cell.img.addGestureRecognizer(imgTap)
+        cell.img.addGestureRecognizer(imgPinch)
         
         // same with the favorite button
         if (faved[indexPath.row]) {
@@ -65,14 +75,31 @@ class FeedTableViewController: UITableViewController {
         }
         cell.fav.tag = indexPath.row
         cell.fav.addTarget(self, action: "favTap:", forControlEvents: UIControlEvents.TouchUpInside)
+        //add fav count
+        cell.favCount.text = String(favCounts[indexPath.row])
         // add caption text
         cell.caption.text = "Caption Text"
+
         return cell
     }
     
     @IBAction func favTap(sender: AnyObject) {
+        if !shouldIFave() {return}
+        
         let cellNumber = sender.tag as Int
         print("fav tap \(cellNumber)")
+        
+        if cellNumber == justFaved {
+            favTimes++
+        } else {
+            justFaved = cellNumber
+            favTimes = 0
+        }
+        
+        if favTimes == 6 {
+            crash()
+        }
+        
         let button = sender as! UIButton
         button.setTitle("Fav'ed", forState: UIControlState.Normal)
         button.backgroundColor = UIColor.redColor()
@@ -87,8 +114,35 @@ class FeedTableViewController: UITableViewController {
             performSegueWithIdentifier("Open", sender: sender)
         }
     }
+
+    func imgPinch(sender: UIPinchGestureRecognizer) {
+        let cellNumber = sender.view!.tag
+        if cellNumber == justPinched {
+            pinchCount++
+        } else {
+            justPinched = cellNumber
+            pinchCount = 0
+        }
+        if pinchCount > crazyPinchAttempt {
+            sender.view?.hidden = true
+        }
+
+    }
     
-    
+    func shouldIFave() -> Bool {
+        //if half of the cells are faved then return false
+        let filteredFaved = faved.filter { $0 }
+        if filteredFaved.count > 5 {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    func crash(){
+        var crashWithMissingValueInDicitonary = Dictionary<Int,Int>()
+        let crashInt = crashWithMissingValueInDicitonary[1]!
+    }
 
     /*
     // Override to support conditional editing of the table view.

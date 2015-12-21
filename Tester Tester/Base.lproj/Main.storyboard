@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NeS-kK-who">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -20,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="350"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGT-sa-kD2" id="73Y-bV-FpX">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="349.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="350"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a caption" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VP8-vV-UbW">
@@ -29,7 +28,11 @@
                                                 <constraint firstAttribute="height" constant="21" id="0KW-8J-qeM"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="count" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yet-Gx-feD">
+                                            <rect key="frame" x="453" y="312" width="43" height="28"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOu-tj-fbA">
@@ -58,6 +61,7 @@
                                         <constraint firstItem="gBh-LV-Mls" firstAttribute="trailing" secondItem="bdY-6u-3vz" secondAttribute="trailing" id="DPf-7T-Uwo"/>
                                         <constraint firstItem="gBh-LV-Mls" firstAttribute="top" secondItem="73Y-bV-FpX" secondAttribute="topMargin" constant="-5" id="EGp-em-lzT"/>
                                         <constraint firstItem="VP8-vV-UbW" firstAttribute="leading" secondItem="73Y-bV-FpX" secondAttribute="leadingMargin" id="JTC-Y0-ceV"/>
+                                        <constraint firstItem="yet-Gx-feD" firstAttribute="leading" secondItem="73Y-bV-FpX" secondAttribute="centerX" id="OSF-PR-VAh"/>
                                         <constraint firstItem="bdY-6u-3vz" firstAttribute="top" secondItem="qOu-tj-fbA" secondAttribute="bottom" constant="6" id="RXS-IH-FRg"/>
                                         <constraint firstItem="VP8-vV-UbW" firstAttribute="centerY" secondItem="qOu-tj-fbA" secondAttribute="centerY" id="Rdb-3W-zLJ"/>
                                         <constraint firstItem="gBh-LV-Mls" firstAttribute="leading" secondItem="73Y-bV-FpX" secondAttribute="leading" id="eSj-1H-jXD"/>
@@ -71,6 +75,7 @@
                                 <connections>
                                     <outlet property="caption" destination="VP8-vV-UbW" id="HhI-IO-ezV"/>
                                     <outlet property="fav" destination="qOu-tj-fbA" id="Fnk-em-Tub"/>
+                                    <outlet property="favCount" destination="yet-Gx-feD" id="Du6-tR-rqw"/>
                                     <outlet property="img" destination="gBh-LV-Mls" id="OsW-Vs-xF3"/>
                                 </connections>
                             </tableViewCell>
@@ -209,20 +214,20 @@
                                 <exclude reference="uKR-3G-39v"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="EBu-OE-Df3"/>
-                                <exclude reference="FFT-FE-6pc"/>
-                                <exclude reference="bPw-Vl-EfT"/>
-                                <exclude reference="qGW-zp-BTr"/>
+                                <exclude reference="6Kh-Id-AAU"/>
                                 <exclude reference="EP5-Ij-Cpb"/>
                                 <exclude reference="L1G-5V-gJj"/>
-                                <exclude reference="6Kh-Id-AAU"/>
-                                <exclude reference="DWi-5x-eRe"/>
-                                <exclude reference="Qba-Wk-W2B"/>
                                 <exclude reference="8tr-RO-E22"/>
                                 <exclude reference="Dru-3n-b4u"/>
                                 <exclude reference="zBV-YK-EZS"/>
                                 <exclude reference="Ue7-ZL-XQ4"/>
                                 <exclude reference="tl4-Bx-pVY"/>
+                                <exclude reference="DWi-5x-eRe"/>
+                                <exclude reference="Qba-Wk-W2B"/>
+                                <exclude reference="EBu-OE-Df3"/>
+                                <exclude reference="FFT-FE-6pc"/>
+                                <exclude reference="bPw-Vl-EfT"/>
+                                <exclude reference="qGW-zp-BTr"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -235,20 +240,20 @@
                                 <include reference="uKR-3G-39v"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="EBu-OE-Df3"/>
-                                <include reference="FFT-FE-6pc"/>
-                                <include reference="bPw-Vl-EfT"/>
-                                <include reference="qGW-zp-BTr"/>
+                                <include reference="6Kh-Id-AAU"/>
                                 <include reference="EP5-Ij-Cpb"/>
                                 <include reference="L1G-5V-gJj"/>
-                                <include reference="6Kh-Id-AAU"/>
-                                <include reference="DWi-5x-eRe"/>
-                                <include reference="Qba-Wk-W2B"/>
                                 <include reference="8tr-RO-E22"/>
                                 <include reference="Dru-3n-b4u"/>
                                 <include reference="zBV-YK-EZS"/>
                                 <include reference="Ue7-ZL-XQ4"/>
                                 <include reference="tl4-Bx-pVY"/>
+                                <include reference="DWi-5x-eRe"/>
+                                <include reference="Qba-Wk-W2B"/>
+                                <include reference="EBu-OE-Df3"/>
+                                <include reference="FFT-FE-6pc"/>
+                                <include reference="bPw-Vl-EfT"/>
+                                <include reference="qGW-zp-BTr"/>
                             </mask>
                         </variation>
                     </view>
