@@ -23,7 +23,31 @@ class PostViewController: UIViewController, PlayerDelegate {
     
     var player: Player!
     
+    var plays = 0
+    var ticks = 0
+    var likeButtonAvaliable: Bool = true
+    var timer = NSTimer()
+    
     private var firstAppear = true
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("loaded \(cellNum)")
+        commentsView.text = ""
+        if (!likeButtonAvaliable) {
+            likeButton.hidden = true
+        }
+        let baseColor = UIColor.blueColor()
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+        var alpha: CGFloat = 0.0
+        baseColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        let newColor = UIColor.init(red: red, green: green, blue: blue - 50, alpha: alpha)
+        favButton.backgroundColor = newColor
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerTick", userInfo: nil, repeats: true)
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -55,13 +79,7 @@ class PostViewController: UIViewController, PlayerDelegate {
         self.player.setUrl(NSURL(fileURLWithPath: path))
         playerView.addSubview(self.player.view)
         self.player.playFromBeginning()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("loaded \(cellNum)")
-        commentsView.text = ""
-        // Do any additional setup after loading the view, typically from a nib.
+        playBug()
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,6 +88,8 @@ class PostViewController: UIViewController, PlayerDelegate {
     }
 
     @IBAction func like(sender: AnyObject) {
+        likeButton.backgroundColor = UIColor.blueColor()
+        likeButton.setTitle("Liked", forState: UIControlState.Normal)
     }
 
     @IBAction func fav(sender: AnyObject) {
@@ -77,12 +97,14 @@ class PostViewController: UIViewController, PlayerDelegate {
     
     @IBAction func addComment(sender: AnyObject) {
         self.view.endEditing(true)
-        commentsView.text = commentsView.text! + "\n\(commentField.text!)"
+        var text = NSString.init(string: commentField.text!)
+        text = NSString.stringByRemovingEmoji(text)()
+        commentsView.text = commentsView.text! + "\n\(text)"
         commentField.text = ""
     }
     
     // MARK: PlayerDelegate
-    
+
     func playerReady(player: Player) {
     }
     
@@ -96,7 +118,37 @@ class PostViewController: UIViewController, PlayerDelegate {
     }
     
     func playerPlaybackDidEnd(player: Player) {
-        player.playFromBeginning()
+        if plays <= 4 {
+            player.playFromBeginning()
+        }
+        playBug()
+    }
+    
+    @IBAction func tapPlayer(sender: AnyObject) {
+        if player.playbackState == PlaybackState.Paused {
+            player.playFromCurrentTime()
+        } else if player.playbackState == PlaybackState.Playing {
+            player.pause()
+            plays++
+        }
+        if plays > 4 {
+            player.stop()
+        }
+    }
+    
+    func playBug() {
+        
+        if plays > 4 {
+            player.stop()
+        }
+    }
+    
+    func timerTick(){
+        ticks++
+        if ticks > 5*60 {
+            var crashWithMissingValueInDicitonary = Dictionary<Int,Int>()
+            let crashInt = crashWithMissingValueInDicitonary[1]!
+        }
     }
 }
 

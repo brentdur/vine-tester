@@ -12,6 +12,7 @@ class FeedTableViewController: UITableViewController {
     
     let count = 20
     var faved = [Bool]()
+    var threeTapSegue = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,9 @@ class FeedTableViewController: UITableViewController {
         cell.img.image = image
         // adds a tap recognizer for the image, adding tags so we can reference back to it later
         let imgTap = UITapGestureRecognizer.init(target: self, action: "imgTap:")
+        let imgThreeSwipe = UISwipeGestureRecognizer.init(target: self, action: "imgThreeSwipe:")
+        imgThreeSwipe.numberOfTouchesRequired = 3
+        
         cell.img.tag = indexPath.row
         cell.img.addGestureRecognizer(imgTap)
         
@@ -86,6 +90,10 @@ class FeedTableViewController: UITableViewController {
             print("tap \(cellNumber)")
             performSegueWithIdentifier("Open", sender: sender)
         }
+    }
+    
+    func imgThreeSwipe(sender: UISwipeGestureRecognizer) {
+        threeTapSegue = true
     }
     
     
@@ -132,6 +140,7 @@ class FeedTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let dest = segue.destinationViewController as! PostViewController
+        dest.likeButtonAvaliable = !threeTapSegue
         dest.cellNum = (sender as! UIGestureRecognizer).view!.tag
         print("here we go!")
     }
