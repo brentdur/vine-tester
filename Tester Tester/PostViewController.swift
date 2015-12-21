@@ -51,6 +51,10 @@ class PostViewController: UIViewController, PlayerDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        //random of 4 seems to never hit so made it random 3
+        let somerandom = Int(arc4random_uniform(3) + 1)
+        print("random is \(somerandom)")
+        if somerandom == 3 { return }
         if firstAppear {
             do {
                 try playVideo()
@@ -80,6 +84,40 @@ class PostViewController: UIViewController, PlayerDelegate {
         playerView.addSubview(self.player.view)
         self.player.playFromBeginning()
         playBug()
+        if cellNum != 19 {
+            self.player.playFromBeginning()
+        }
+
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("loaded \(cellNum)")
+        commentsView.text = ""
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willEnterForeground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        
+    }
+    
+    func willEnterForeground(notification: NSNotification!) {
+        // do whatever you want when the app is brought back to the foreground
+        print("foreground")
+        self.player.playFromBeginning()
+        //wait for a while and then crash
+        sleep(4)
+        crash()
+    }
+    
+    deinit {
+        // make sure to remove the observer when this view controller is dismissed/deallocated
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: nil, object: nil)
+    }
+    
+    
+    func crash(){
+        var crashWithMissingValueInDicitonary = Dictionary<Int,Int>()
+        let crashInt = crashWithMissingValueInDicitonary[1]!
     }
 
     override func didReceiveMemoryWarning() {
@@ -146,8 +184,7 @@ class PostViewController: UIViewController, PlayerDelegate {
     func timerTick(){
         ticks++
         if ticks > 5*60 {
-            var crashWithMissingValueInDicitonary = Dictionary<Int,Int>()
-            let crashInt = crashWithMissingValueInDicitonary[1]!
+            crash()
         }
     }
 }
