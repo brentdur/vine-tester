@@ -47,6 +47,8 @@ class PostViewController: UIViewController, PlayerDelegate {
         favButton.backgroundColor = newColor
         
         timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerTick", userInfo: nil, repeats: true)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willEnterForeground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -88,15 +90,6 @@ class PostViewController: UIViewController, PlayerDelegate {
             self.player.playFromBeginning()
         }
 
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("loaded \(cellNum)")
-        commentsView.text = ""
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willEnterForeground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
-        
     }
     
     func willEnterForeground(notification: NSNotification!) {
