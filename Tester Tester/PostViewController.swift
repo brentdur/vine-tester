@@ -84,10 +84,9 @@ class PostViewController: UIViewController, PlayerDelegate {
         }
         self.player.setUrl(NSURL(fileURLWithPath: path))
         playerView.addSubview(self.player.view)
-        self.player.playFromBeginning()
-        playBug()
         if cellNum != 19 {
             self.player.playFromBeginning()
+            playBug()            
         }
 
     }

@@ -15,8 +15,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
             endingLineNumber = "30"
-            landmarkName = "viewDidAppear(_:)"
-            landmarkType = "5">
+            landmarkName = "PostViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
             endingLineNumber = "78"
-            landmarkName = "willEnterForeground(_:)"
+            landmarkName = "playVideo()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
