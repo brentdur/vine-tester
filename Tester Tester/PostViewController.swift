@@ -70,6 +70,10 @@ class PostViewController: UIViewController, PlayerDelegate {
         }
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: nil, object: nil)
+    }
+    
     private func playVideo() throws {
         self.player = Player()
         self.player.delegate = self
@@ -99,13 +103,6 @@ class PostViewController: UIViewController, PlayerDelegate {
         sleep(4)
         crash()
     }
-    
-    deinit {
-        // make sure to remove the observer when this view controller is dismissed/deallocated
-        
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: nil, object: nil)
-    }
-    
     
     func crash(){
         var crashWithMissingValueInDicitonary = Dictionary<Int,Int>()
