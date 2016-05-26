@@ -13,6 +13,8 @@ import AVFoundation
 class PostViewController: UIViewController, PlayerDelegate {
     
     var cellNum: Int!
+    var faved: Bool!
+    var parent: FeedTableViewController!
     
     @IBOutlet weak var addComment: UIButton!
     @IBOutlet weak var likeButton: UIButton!
@@ -27,6 +29,8 @@ class PostViewController: UIViewController, PlayerDelegate {
     var ticks = 0
     var likeButtonAvaliable: Bool = true
     var timer = NSTimer()
+    
+    var newColor: UIColor!
     
     private var firstAppear = true
     
@@ -43,9 +47,15 @@ class PostViewController: UIViewController, PlayerDelegate {
         var blue: CGFloat = 0.0
         var alpha: CGFloat = 0.0
         baseColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        let newColor = UIColor.init(red: red, green: green, blue: blue - 50, alpha: alpha)
-        favButton.backgroundColor = newColor
-        
+        newColor = UIColor.init(red: red, green: green, blue: blue - 50, alpha: alpha)
+        if faved! {
+            favButton.backgroundColor = UIColor.redColor()
+            favButton.setTitle("Fav'ed", forState: .Normal)
+        } else {
+            favButton.setTitle("Fav", forState: .Normal)
+            favButton.backgroundColor = newColor
+        }
+
         timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerTick", userInfo: nil, repeats: true)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "willEnterForeground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
@@ -90,7 +100,7 @@ class PostViewController: UIViewController, PlayerDelegate {
         playerView.addSubview(self.player.view)
         if cellNum != 19 {
             self.player.playFromBeginning()
-            playBug()            
+            playBug()
         }
 
     }
@@ -100,8 +110,10 @@ class PostViewController: UIViewController, PlayerDelegate {
         print("foreground")
         self.player.playFromBeginning()
         //wait for a while and then crash
-        sleep(4)
-        crash()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+            sleep(6)
+            self.crash()
+        })
     }
     
     func crash(){
@@ -120,6 +132,20 @@ class PostViewController: UIViewController, PlayerDelegate {
     }
 
     @IBAction func fav(sender: AnyObject) {
+        
+        if !faved {
+            if !parent.shouldIFave() {return}
+            
+            let cellNumber = cellNum!
+            print("fav tap \(cellNumber)")
+            
+            favButton.backgroundColor = UIColor.redColor()
+            favButton.setTitle("Fav'ed", forState: .Normal)
+            
+            parent.faved[cellNumber] = true
+            faved = true
+        }
+        
     }
     
     @IBAction func addComment(sender: AnyObject) {

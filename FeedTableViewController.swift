@@ -36,6 +36,12 @@ class FeedTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -193,8 +199,11 @@ class FeedTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let dest = segue.destinationViewController as! PostViewController
+        let cellNum = (sender as! UIGestureRecognizer).view!.tag
         dest.likeButtonAvaliable = !threeTapSegue
-        dest.cellNum = (sender as! UIGestureRecognizer).view!.tag
+        dest.faved = faved[cellNum]
+        dest.parent = self
+        dest.cellNum = cellNum
         print("here we go!")
     }
 
