@@ -56,9 +56,9 @@ class PostViewController: UIViewController, PlayerDelegate {
             favButton.backgroundColor = newColor
         }
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timerTick", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PostViewController.timerTick), userInfo: nil, repeats: true)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willEnterForeground:", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PostViewController.willEnterForeground(_:)), name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -94,7 +94,6 @@ class PostViewController: UIViewController, PlayerDelegate {
         let name = "vids/\(cellNum)"
         guard let path = NSBundle.mainBundle().pathForResource(name, ofType:"mp4") else {
             throw AppError.InvalidResource(name, "mp4")
-            return
         }
         self.player.setUrl(NSURL(fileURLWithPath: path))
         playerView.addSubview(self.player.view)
@@ -182,7 +181,7 @@ class PostViewController: UIViewController, PlayerDelegate {
             player.playFromCurrentTime()
         } else if player.playbackState == PlaybackState.Playing {
             player.pause()
-            plays++
+            plays += 1
         }
         if plays > 4 {
             player.stop()
@@ -197,7 +196,7 @@ class PostViewController: UIViewController, PlayerDelegate {
     }
     
     func timerTick(){
-        ticks++
+        ticks += 1
         if ticks > 5*60 {
             crash()
         }

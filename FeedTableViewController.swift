@@ -26,7 +26,7 @@ class FeedTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
-        for (var i = 0; i < count; i++) {
+        for _ in 0..<count {
             faved.append(false)
         }
 
@@ -65,10 +65,10 @@ class FeedTableViewController: UITableViewController {
         let image = UIImage.init(named: "\(indexPath.row)")
         cell.img.image = image
         // adds a tap recognizer for the image, adding tags so we can reference back to it later
-        let imgTap = UITapGestureRecognizer.init(target: self, action: "imgTap:")
-        let imgThreeSwipe = UISwipeGestureRecognizer.init(target: self, action: "imgThreeSwipe:")
+        let imgTap = UITapGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgTap(_:)))
+        let imgThreeSwipe = UISwipeGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgThreeSwipe(_:)))
         imgThreeSwipe.numberOfTouchesRequired = 3
-        let imgPinch = UIPinchGestureRecognizer.init(target: self, action: "imgPinch:")
+        let imgPinch = UIPinchGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgPinch(_:)))
         cell.img.tag = indexPath.row
         cell.img.addGestureRecognizer(imgTap)
         cell.img.addGestureRecognizer(imgPinch)
@@ -83,7 +83,7 @@ class FeedTableViewController: UITableViewController {
             cell.fav.backgroundColor = UIColor.blueColor()
         }
         cell.fav.tag = indexPath.row
-        cell.fav.addTarget(self, action: "favTap:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.fav.addTarget(self, action: #selector(FeedTableViewController.favTap(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         //add fav count
         cell.favCount.text = String(favCounts[indexPath.row])
         // add caption text
@@ -99,7 +99,7 @@ class FeedTableViewController: UITableViewController {
         print("fav tap \(cellNumber)")
         
         if cellNumber == justFaved {
-            favTimes++
+            favTimes += 1
         } else {
             justFaved = cellNumber
             favTimes = 0
@@ -127,7 +127,7 @@ class FeedTableViewController: UITableViewController {
     func imgPinch(sender: UIPinchGestureRecognizer) {
         let cellNumber = sender.view!.tag
         if cellNumber == justPinched {
-            pinchCount++
+            pinchCount += 1
         } else {
             justPinched = cellNumber
             pinchCount = 0
