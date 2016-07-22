@@ -67,7 +67,7 @@ class FeedTableViewController: UITableViewController {
         // adds a tap recognizer for the image, adding tags so we can reference back to it later
         let imgTap = UITapGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgTap(_:)))
         let imgThreeSwipe = UISwipeGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgThreeSwipe(_:)))
-        imgThreeSwipe.numberOfTouchesRequired = 3
+//        imgThreeSwipe.numberOfTouchesRequired = 3
         let imgPinch = UIPinchGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgPinch(_:)))
         cell.img.tag = indexPath.row
         cell.img.addGestureRecognizer(imgTap)
