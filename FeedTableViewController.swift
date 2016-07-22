@@ -39,7 +39,7 @@ class FeedTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        threeTapSegue = false
         tableView.reloadData()
     }
 
@@ -67,11 +67,12 @@ class FeedTableViewController: UITableViewController {
         // adds a tap recognizer for the image, adding tags so we can reference back to it later
         let imgTap = UITapGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgTap(_:)))
         let imgThreeSwipe = UISwipeGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgThreeSwipe(_:)))
-//        imgThreeSwipe.numberOfTouchesRequired = 3
+        imgThreeSwipe.direction = UISwipeGestureRecognizerDirection.Left
         let imgPinch = UIPinchGestureRecognizer.init(target: self, action: #selector(FeedTableViewController.imgPinch(_:)))
         cell.img.tag = indexPath.row
         cell.img.addGestureRecognizer(imgTap)
         cell.img.addGestureRecognizer(imgPinch)
+        cell.img.addGestureRecognizer(imgThreeSwipe)
         
         // same with the favorite button
         if (faved[indexPath.row]) {
@@ -140,6 +141,7 @@ class FeedTableViewController: UITableViewController {
     
     func imgThreeSwipe(sender: UISwipeGestureRecognizer) {
         threeTapSegue = true
+        performSegueWithIdentifier("Open", sender: sender)
     }
     
     func shouldIFave() -> Bool {
