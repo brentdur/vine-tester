@@ -91,7 +91,7 @@
                             <outlet property="delegate" destination="F1v-1O-k4i" id="wmT-cX-me5"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="rQd-JJ-c73"/>
+                    <navigationItem key="navigationItem" title="Most Fav'd Videos" id="rQd-JJ-c73"/>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Open" id="JK4-Hh-zpP"/>
                     </connections>
